@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-
+data
+data/db
 package-lock.json
 
 /tests/e2e/videos/
