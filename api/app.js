@@ -4,6 +4,7 @@ const cors = require('cors')
 const session = require('express-session')
 const loginRouter = require('./routes/login')
 const menuRouter = require('./routes/menu')
+const titleRouter = require('./routes/title')
 
 const app = express()
 app.use(cors())
@@ -19,6 +20,7 @@ app.use(session({
 
 app.use(loginRouter)
 app.use(menuRouter)
+app.use(titleRouter)
 
 app.listen(3000,()=>{
   console.log('Server is running');

@@ -1,59 +1,20 @@
 const express = require('express')
-
+const Menu = require('../model/menu')
 const router = express.Router()
 
-const menuList = [
-  {
-    title:'内容管理',
-    url:'content',
-    name:'1',
-    children:[
-      {
-        title:'文章管理',
-        url:'content',
-        name:'1-1',
-      },
-      {
-        title:'文章管理',
-        url:'content',
-        name:'1-2',
-      },
-      {
-        title:'文章管理',
-        url:'content',
-        name:'1-3',
-      }
-    ]
-  },
-  {
-    title:'内容管理',
-    url:'content',
-    name:'2',
-    children:[
-      {
-        title:'文章管理',
-        url:'content',
-        name:'2-1',
-      },
-      {
-        title:'文章管理',
-        url:'content',
-        name:'2-2',
-      },
-      {
-        title:'文章管理',
-        url:'content',
-        name:'2-3',
-      }
-    ]
+router.get('/api/menu' ,async (req,res)=>{
+  try {
+    let ret = await Menu.find()
+    res.status(200).json({
+      err_code:0,
+      message:'',
+      menuList:ret
+    })
+  } catch (error) {
+    res.status(500).json({
+      err_code:500,
+      message:error.message
+    })
   }
-]
-router.get('/api/menu' ,(req,res)=>{
-  res.json({
-    error:0,
-    message:'注册成功',
-    menuList:menuList
-  })
 })
-
 module.exports = router

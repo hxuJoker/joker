@@ -10,11 +10,11 @@
       :style="{overflow: 'hidden'}"
     >
       <Menu theme="dark">
-        <Submenu :name="item.name" v-for="(item,index) in menuList" :key="index">
+        <Submenu :name="index+1" v-for="(item,index) in menuList" :key="index">
           <template slot="title">
             <Icon type="ios-paper" />{{item.title}}
           </template>
-          <MenuItem v-for="(item1,index) in item.children" :key="index" :name="item1.name">{{item1.title}}</MenuItem>
+          <MenuItem v-for="(item1,index) in item.children" :key="index" :name="index+1" :to="item1.url">{{item1.title}}</MenuItem>
         </Submenu>
       </Menu>
     </Sider>
