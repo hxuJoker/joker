@@ -22,7 +22,7 @@
       <Header class="header-con">
         <Dropdown trigger="click" @on-click="changeDrop($event)">
           <a href="javascript:void(0)">
-              个人信息
+              {{local}}
               <Icon type="ios-arrow-down"></Icon>
           </a>
           <DropdownMenu slot="list">
@@ -62,12 +62,23 @@ export default {
       menuList: []
     };
   },
-  computed: {},
+  computed: {
+    userInfo(){
+      return this.$store.state.userInfo.username
+    },
+    local(){
+      return this.userInfo || localStorage.getItem('username')
+    }
+  },
   methods: {
     changeDrop(name){
       if(name === 'logout'){
-        this.$get('/api/logout').then(()=>{
-          this.$router.replace('/login')
+        this.$get('/api/logout').then((res)=>{
+          if(res.err_code === 0){
+            this.$router.replace(res.url)
+            localStorage.removeItem('username')
+            this.$Message.info(res.message)
+          }
         })
       }
     }

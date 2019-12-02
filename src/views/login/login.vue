@@ -17,7 +17,6 @@
 
 <script>
 import LoginForm from '_c/login-form'
-// import { setToken, getToken } from '@/libs/util'
 export default {
   components: {
     LoginForm
@@ -25,10 +24,20 @@ export default {
   methods: {
     handleSubmit (param) {
       this.$post('/api/login',param).then((res)=>{
-        this.$store.commit('setToken',res.token)
-        this.$router.push({
-          name: this.$config.homeName
-        })
+        if(res.err_code === 1){
+          this.$Message.error(res.message)
+        } else if(res.err_code === 0){
+          this.$store.commit('setUserInfo',res.userInfo)
+          localStorage.setItem('username',res.userInfo.username)
+          this.$Message.info(res.message)
+          setTimeout(() => {
+            this.$router.push({
+              name: this.$config.homeName
+            })
+          }, 500);
+        } else {
+          this.$Message.error(res.message)
+        }
       })
     }
   }

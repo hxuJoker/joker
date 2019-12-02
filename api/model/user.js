@@ -10,7 +10,36 @@ let loginSchema = new mongoose.Schema({
   password:{
     type:String,
     required:true
-  }
+  },
+  gender:{
+    type:Number,
+    enum:[0,1],
+    default:0
+  },
+  birthday:{
+    type:String,
+    default:''
+  },
+  hobbies:{
+    type:Array,
+    default:[]
+  },
+  email:{
+    type:String,
+    default:''
+  },
+  city:{
+    type:String,
+    default:''
+  },
+  create_time:{
+    type:Date,
+    default:Date.now
+  },
+  update_time:{
+    type:Date,
+    default:Date.now
+  },
 })
 
-module.exports = mongoose.module('User',loginSchema)
+module.exports = mongoose.model('User',loginSchema)

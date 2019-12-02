@@ -24,14 +24,20 @@ export default {
   methods: {
     handleSubmit (param) {
       this.$post('/api/register',param).then((res)=>{
-        this.$store.commit('setToken',res.token)
-        this.$Message.info('注册成功')
-        setTimeout(() => {
-          this.$router.push({
-            name: this.$config.homeName
-          })
-        }, 1000);
-        
+        if(res.err_code === 1){
+          this.$Message.error(res.message)
+        } else if(res.err_code === 0){
+          this.$store.commit('setUserInfo',res.userInfo)
+          localStorage.setItem('username',res.userInfo.username)
+          this.$Message.info(res.message)
+          setTimeout(() => {
+            this.$router.push({
+              name: this.$config.homeName
+            })
+          }, 500);
+        } else {
+          this.$Message.error(res.message)
+        }
       })
     }
   }

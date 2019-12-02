@@ -5,16 +5,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token:'',
-    user:{
-      access:['super_admin']
-    }
+    userInfo:{}
   },
   mutations: {
     setToken(state,token){
       state.token = token
+    },
+    setUserInfo(state,userInfo){
+      state.userInfo = userInfo
     }
   },
   actions: {
+    
   },
   modules: {
   }
